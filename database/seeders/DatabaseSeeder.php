@@ -49,37 +49,10 @@ class DatabaseSeeder extends Seeder
             DocumentSequence::firstOrCreate(['seq_key' => $s['seq_key']], $s);
         }
 
-        // ── Default users ──
-        User::firstOrCreate(
-            ['username' => 'admin'],
-            [
-                'email' => 'admin@isms.local',
-                'full_name' => 'System Administrator',
-                'password' => 'admin123',
-                'role_id' => Role::where('role_name', 'Admin')->value('id'),
-                'status' => 'active',
-            ]
-        );
-        $manager = User::firstOrCreate(
-            ['username' => 'manager'],
-            [
-                'email' => 'manager@isms.local',
-                'full_name' => 'Juan dela Cruz',
-                'password' => 'manager123',
-                'role_id' => Role::where('role_name', 'Manager')->value('id'),
-                'status' => 'active',
-            ]
-        );
-        $cashier = User::firstOrCreate(
-            ['username' => 'cashier'],
-            [
-                'email' => 'cashier@isms.local',
-                'full_name' => 'Maria Santos',
-                'password' => 'cashier123',
-                'role_id' => Role::where('role_name', 'Cashier')->value('id'),
-                'status' => 'active',
-            ]
-        );
+        // ── Default users (delegated to UserSeeder) ──
+        $this->call(UserSeeder::class);
+        $manager = User::where('username', 'manager')->first();
+        $cashier = User::where('username', 'cashier')->first();
 
         // ── UoM ──
         $uoms = [

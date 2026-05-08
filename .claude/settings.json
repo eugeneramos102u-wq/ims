@@ -15,7 +15,8 @@
       "Bash(curl -s -b /tmp/jar.txt \"http://127.0.0.1:8001/customers?has_outstanding=1\")",
       "Bash(curl -s -b /tmp/jar.txt \"http://127.0.0.1:8001/collections?pending_deposit=1\")",
       "Bash(curl -s -b /tmp/jar.txt \"http://127.0.0.1:8001/customers\")",
-      "Bash(/c/xampp/mysql/bin/mysql.exe -u root isms -e \"SELECT DISTINCT c.customer_code FROM customers c JOIN sales_invoices i ON i.customer_id = c.id WHERE i.status IN \\('issued','partial','overdue'\\) AND i.total_amount > i.amount_paid\")"
+      "Bash(/c/xampp/mysql/bin/mysql.exe -u root isms -e \"SELECT DISTINCT c.customer_code FROM customers c JOIN sales_invoices i ON i.customer_id = c.id WHERE i.status IN \\('issued','partial','overdue'\\) AND i.total_amount > i.amount_paid\")",
+      "PowerShell($env:Path = \"C:\\\\xampp\\\\php;$env:Path\"; Set-Location 'C:\\\\xampp\\\\htdocs\\\\isms'; & 'C:\\\\xampp\\\\php\\\\php.exe' artisan db:seed --class=UserSeeder --no-interaction 2>&1 | Select-Object -Last 10)"
     ]
   }
 }
