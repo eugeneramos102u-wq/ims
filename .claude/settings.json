@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell($env:Path = \"C:\\\\xampp\\\\php;$env:Path\"; Set-Location 'C:\\\\xampp\\\\htdocs\\\\isms'; & 'C:\\\\xampp\\\\php\\\\php.exe' artisan migrate --no-interaction 2>&1 | Select-Object -Last 3; & 'C:\\\\xampp\\\\php\\\\php.exe' artisan view:clear 2>&1 | Out-Null; \"ok\")",
+      "Bash(curl -s -b /tmp/jar.txt http://127.0.0.1:8001/collections)",
+      "Bash(awk '/<tr>/,/<\\\\/tr>/' /tmp/idx.out)",
+      "Bash(awk '/OR-000003|OR-000004|OR-000005|OR-000006/,/Deposited/' /tmp/idx.out)",
+      "PowerShell($env:Path = \"C:\\\\xampp\\\\php;$env:Path\"; Set-Location 'C:\\\\xampp\\\\htdocs\\\\isms'; & 'C:\\\\xampp\\\\php\\\\php.exe' artisan view:clear 2>&1 | Out-Null; \"ok\")",
+      "Bash(curl -s -b /tmp/jar.txt http://127.0.0.1:8001/deposits-create)",
+      "Bash(python3 -c \"import sys, html, re; t = html.unescape\\(sys.stdin.read\\(\\)\\); print\\(re.findall\\(r'\\\\\"method\\\\\":\\\\\"[^\\\\\"]+\\\\\"', t\\)\\)\")",
+      "Bash(curl -s -b /tmp/jar.txt \"http://127.0.0.1:8001/sales-orders?from_date=2025-01-01&to_date=2025-01-31\")",
+      "Bash(curl -s -b /tmp/jar.txt \"http://127.0.0.1:8001/sales-orders?from_date=2026-05-01&to_date=2026-05-31\")",
+      "Bash(curl -s -b /tmp/jar.txt \"http://127.0.0.1:8001/items?stock_level=zero\")",
+      "Bash(curl -s -b /tmp/jar.txt \"http://127.0.0.1:8001/items?stock_level=in_stock\")",
+      "Bash(curl -s -b /tmp/jar.txt \"http://127.0.0.1:8001/customers?has_outstanding=1\")",
+      "Bash(curl -s -b /tmp/jar.txt \"http://127.0.0.1:8001/collections?pending_deposit=1\")",
+      "Bash(curl -s -b /tmp/jar.txt \"http://127.0.0.1:8001/customers\")",
+      "Bash(/c/xampp/mysql/bin/mysql.exe -u root isms -e \"SELECT DISTINCT c.customer_code FROM customers c JOIN sales_invoices i ON i.customer_id = c.id WHERE i.status IN \\('issued','partial','overdue'\\) AND i.total_amount > i.amount_paid\")"
+    ]
+  }
+}
