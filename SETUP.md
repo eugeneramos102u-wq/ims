@@ -130,6 +130,61 @@ C:\xampp\php\php.exe artisan serve --port=8001
 
 ---
 
+## Run it always-on (no `artisan serve`)
+
+For day-to-day use you do **not** want to run `php artisan serve` every time you boot the PC. Use Apache (XAMPP) and have Windows start it automatically.
+
+### 1. Auto-start XAMPP services on Windows boot
+
+One-time setup:
+
+- [ ] Right-click the **XAMPP Control Panel** shortcut → **Run as administrator** (required)
+- [ ] In the **Service** column on the left, click the red **✕** next to **Apache** → it turns into a green **✓** (Apache is now a Windows service)
+- [ ] Do the same for **MySQL** → green **✓**
+- [ ] Close the Control Panel
+
+After the next reboot, Apache and MySQL start automatically — no Control Panel, no terminal, no `artisan serve`.
+
+### 2. Verify after reboot
+
+Restart the PC. **Don't** open XAMPP. Just open the browser and go to:
+
+```
+http://localhost/isms/public
+```
+
+If the login page loads, you're done. ✅
+
+### 3. (Optional) Clean URL — drop the `/public`
+
+If you'd rather access the app at `http://localhost/isms` (without `/public` at the end), create `C:\xampp\htdocs\isms\.htaccess` (next to `composer.json`, **not** inside the `public/` folder) with:
+
+```apache
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+```
+
+This file is machine-specific — fine to leave uncommitted (just don't `git add` it).
+
+### 4. (Optional) LAN access from other PCs
+
+Per the original blueprint, ISMS is meant to run on one office PC and be accessed by all workstations. To enable LAN access:
+
+- [ ] Find this PC's local IP. Open PowerShell and run `ipconfig` — look for the **IPv4 Address** under your active adapter (e.g. `192.168.1.10`)
+- [ ] On any other PC on the same WiFi/LAN, open `http://192.168.1.10/isms/public`
+- [ ] If blocked, allow Apache through the Windows Firewall:
+  - Search "**Windows Defender Firewall**" → **Allow an app** → **Change settings** → **Allow another app**
+  - Browse to `C:\xampp\apache\bin\httpd.exe` → check both **Private** and **Public**
+- [ ] (Optional) Reserve a static IP for this PC in your router so the address never changes
+
+### 5. (Optional) Desktop shortcut
+
+Right-click the desktop → **New → Shortcut** → paste `http://localhost/isms/public` → Name it "ISMS". One-click access from now on.
+
+---
+
 ## Default seed accounts
 
 | Username | Password | Role |
